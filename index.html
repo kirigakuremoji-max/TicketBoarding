@@ -147,43 +147,43 @@
   body {
     display: flex;
     flex-direction: column;
-    align-items: center; /* center lahat ng content horizontally */
+    align-items: center;
   }
 
-  #controls {
-    width: 100%;
-    max-width: 600px; /* limit para hindi lumampas */
-    margin: 0 auto 25px auto;
-    padding: 0 15px;
-    box-sizing: border-box;
-  }
-
-  .board {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    max-width: 600px; /* center width */
-    margin: 0 auto;
-    padding: 0 15px;
+  #controls,
+  .board,
+  #resolved {
+    width: 95%;          /* mas maluwag, hindi masikip */
+    max-width: 480px;    /* mas maliit kaysa 600px para hindi zoomed */
+    margin: 0 auto 20px auto;
+    padding: 0 10px;
     box-sizing: border-box;
   }
 
   .column {
     width: 100%;
-    padding: 18px;
-    margin-bottom: 20px;
+    padding: 16px;
+    margin-bottom: 18px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     background: #2a2a2a;
     border: 1px solid #6f42c1;
   }
 
-  #resolved {
+  .column h3 { font-size: 16px; margin-bottom: 10px; }
+
+  .ticket {
+    padding: 10px;
+    margin: 8px 0;
+    font-size: 14px;
+    word-wrap: break-word;
+  }
+
+  .ticket button {
     width: 100%;
-    max-width: 600px;
-    margin: 25px auto 0 auto;
-    padding: 18px;
+    padding: 8px;
+    font-size: 13px;
+    margin-top: 6px;
   }
 }
 </style>
