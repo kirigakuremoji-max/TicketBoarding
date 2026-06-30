@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ticket Board</title>
+  <title>✨ MoNiCa Ticket Board ✨</title>
 
 <style>
   body {
     font-family: 'Poppins', sans-serif;
     background: #1c1c1c;
-    margin: 0; 
-    padding: 30px; /* mas maluwag sa paligid */
+    margin: 0; padding: 20px;
     color: #ffffff;
   }
 
@@ -18,28 +17,27 @@
     text-align: center;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 40px; /* dagdag space sa ilalim ng title */
+    margin-bottom: 25px;
   }
 
   #controls {
     text-align: center;
-    margin-bottom: 30px; /* space bago board */
-    color: #ffffff;
+    margin-bottom: 25px;
   }
 
   #ticketTitle {
-    padding: 12px;
+    padding: 10px;
     border-radius: 8px;
     border: 1px solid #6f42c1;
-    width: 260px;
+    width: 220px;
     outline: none;
     background: #2a2a2a;
     color: #ffffff;
-    margin-right: 12px; /* space sa kanan ng input */
+    margin-right: 10px;
   }
 
   #controls button {
-    padding: 12px 22px;
+    padding: 10px 15px;
     border: none;
     border-radius: 8px;
     background: #6f42c1;
@@ -53,61 +51,61 @@
     background: #4b2a85;
   }
 
+  /* scrollable board on desktop */
   .board {
     display: flex;
-    gap: 30px; /* mas maluwag gap sa pagitan ng columns */
+    gap: 20px;
     flex-wrap: nowrap;
     overflow-x: auto;
     justify-content: flex-start;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   .column {
-    flex: 0 0 300px;   /* mas malapad bawat column */
-    min-width: 300px;
-    padding: 20px;
-    border-radius: 12px;
+    flex: 0 0 250px;
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 10px;
     background: #2a2a2a;
     border: 1px solid #6f42c1;
     color: #ffffff;
-    margin-bottom: 25px; /* space sa ilalim ng bawat column */
+    margin-bottom: 20px;
   }
 
   .column h3 {
     text-align: center;
-    font-size: 18px;
-    margin-bottom: 20px; /* dagdag space sa ilalim ng heading */
+    font-size: 16px;
+    margin-bottom: 12px;
     color: #ffffff;
     border-bottom: 1px solid #333;
-    padding-bottom: 10px;
+    padding-bottom: 6px;
   }
 
   .ticket {
     background: #6f42c1;
     border-radius: 8px;
-    padding: 14px;
-    margin: 15px 0; /* mas maluwag space sa pagitan ng tickets */
+    padding: 12px;
+    margin: 10px 0;
     cursor: grab;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     color: #ffffff;
     transition: transform 0.2s;
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .ticket:hover {
     transform: scale(1.03);
     background: #4b2a85;
-    color: #ffffff;
   }
 
   .ticket button {
-    margin-top: 12px;
-    padding: 7px 14px;
+    margin-top: 8px;
+    padding: 6px 12px;
     border: none;
     border-radius: 6px;
     background: #092372;
     color: #ffffff;
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     transition: 0.3s;
   }
@@ -116,24 +114,40 @@
     background: #03588c;
   }
 
+  /* delete button style */
+  .ticket button:nth-of-type(2) {
+    margin-left: 8px;
+    background: #a83232;
+  }
+  .ticket button:nth-of-type(2):hover {
+    background: #7a1f1f;
+  }
+
   #resolved {
     border: 2px dashed #6f42c1;
     background: #1c1c1c;
     color: #ffffff;
-    margin-top: 40px; /* dagdag space bago resolved section */
-    padding: 25px;
+    margin-top: 25px;
+    padding: 15px;
   }
 
-  /* responsive: stacked on mobile */
+  /* mobile version: stacked layout */
   @media (max-width: 768px) {
     .board {
       flex-direction: column;
       overflow-x: visible;
-      gap: 20px; /* mas maliit gap sa mobile */
+      gap: 15px;
     }
     .column {
       width: 100%;
       min-width: unset;
+    }
+    #ticketTitle {
+      width: 100%; /* input full width sa mobile */
+      margin-bottom: 10px;
+    }
+    #controls button {
+      width: 100%; /* button full width sa mobile */
     }
   }
 </style>
@@ -203,14 +217,6 @@ function retrieveTicket(ticketId) {
   ticket.querySelector("button").onclick = () => resolveTicket(ticketId);
 }
 
-function deleteTicket(ticketId) {
-  const confirmDelete = confirm("Are you sure you want to delete this ticket?");
-  if (confirmDelete) {
-    const ticket = document.getElementById(ticketId);
-    ticket.remove(); // tuluyang burahin
-  }
-}
-
 function createTicket() {
   const title = document.getElementById("ticketTitle").value.trim();
   if (!title) return alert("Please enter a ticket title.");
@@ -228,6 +234,12 @@ function createTicket() {
   
   document.getElementById("awaiting").appendChild(ticket);
   document.getElementById("ticketTitle").value = "";
+}
+function deleteTicket(ticketId) {
+  const ticket = document.getElementById(ticketId);
+  if (ticket) {
+    ticket.remove(); // tanggalin yung ticket sa board
+  }
 }
 </script>
 
