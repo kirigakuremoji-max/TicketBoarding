@@ -138,11 +138,10 @@
   html, body {
     width: 100%;
     min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #1c1c1c;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    background-color: #1c1c1c;
   }
 
   body {
@@ -151,13 +150,21 @@
     align-items: center; /* center lahat ng content horizontally */
   }
 
+  #controls {
+    width: 100%;
+    max-width: 600px; /* limit para hindi lumampas */
+    margin: 0 auto 25px auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+
   .board {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    max-width: 600px; /* limit para hindi lumampas sa screen */
-    margin: 0 auto; /* center horizontally */
+    max-width: 600px; /* center width */
+    margin: 0 auto;
     padding: 0 15px;
     box-sizing: border-box;
   }
@@ -170,7 +177,6 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     background: #2a2a2a;
     border: 1px solid #6f42c1;
-    overflow: visible;
   }
 
   #resolved {
@@ -178,7 +184,6 @@
     max-width: 600px;
     margin: 25px auto 0 auto;
     padding: 18px;
-    overflow: visible;
   }
 }
 </style>
