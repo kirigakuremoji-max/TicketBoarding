@@ -1,62 +1,241 @@
-@media (max-width: 600px) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ MoNiCa Ticket Board ✨</title>
+
+<style>
   body {
-    padding: 25px;
+    font-family: 'Poppins', sans-serif;
+    background: #1c1c1c;
+    margin: 0; padding: 20px;
+    color: #ffffff;
   }
 
   h1 {
-    font-size: 22px;
-    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 25px;
   }
 
   #controls {
-    margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 25px;
   }
 
   #ticketTitle {
-    width: 100%;
-    margin-bottom: 12px;
-    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #6f42c1;
+    width: 220px;
+    outline: none;
+    background: #2a2a2a;
+    color: #ffffff;
+    margin-right: 10px;
   }
 
   #controls button {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #6f42c1;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
   }
 
+  #controls button:hover {
+    background: #4b2a85;
+  }
+
+  /* scrollable board on desktop */
   .board {
-    flex-direction: column;
-    gap: 25px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 10px;
   }
 
   .column {
-    width: 100%;
-    padding: 18px;
-    margin-bottom: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    flex: 0 0 250px;
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #2a2a2a;
+    border: 1px solid #6f42c1;
+    color: #ffffff;
+    margin-bottom: 20px;
   }
 
   .column h3 {
-    font-size: 18px;
-    margin-bottom: 14px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #ffffff;
+    border-bottom: 1px solid #333;
+    padding-bottom: 6px;
   }
 
   .ticket {
+    background: #6f42c1;
+    border-radius: 8px;
     padding: 12px;
-    margin: 12px 0;
-    font-size: 15px;
+    margin: 10px 0;
+    cursor: grab;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    color: #ffffff;
+    transition: transform 0.2s;
+    font-size: 14px;
+  }
+
+  .ticket:hover {
+    transform: scale(1.03);
+    background: #4b2a85;
   }
 
   .ticket button {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
     margin-top: 8px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #092372;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .ticket button:hover {
+    background: #03588c;
+  }
+
+  /* delete button style */
+  .ticket button:nth-of-type(2) {
+    margin-left: 8px;
+    background: #a83232;
+  }
+  .ticket button:nth-of-type(2):hover {
+    background: #7a1f1f;
   }
 
   #resolved {
-    margin-top: 30px;
-    padding: 18px;
+    border: 2px dashed #6f42c1;
+    background: #1c1c1c;
+    color: #ffffff;
+    margin-top: 25px;
+    padding: 15px;
+  }
+
+  /* mobile version: stacked layout */
+  @media (max-width: 768px) {
+    body { padding: 25px; }
+    h1 { font-size: 22px; margin-bottom: 30px; }
+    #controls { margin-bottom: 30px; }
+    #ticketTitle { width: 100%; margin-bottom: 12px; font-size: 16px; }
+    #controls button { width: 100%; padding: 12px; font-size: 16px; }
+    .board { flex-direction: column; gap: 25px; overflow-x: visible; }
+    .column { width: 100%; padding: 18px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+    .column h3 { font-size: 18px; margin-bottom: 14px; }
+    .ticket { padding: 12px; margin: 12px 0; font-size: 15px; }
+    .ticket button { width: 100%; padding: 10px; font-size: 14px; margin-top: 8px; }
+    #resolved { margin-top: 30px; padding: 18px; }
+  }
+</style>
+</head>
+
+<h1>✨ MoNiCa Ticket Board ✨</h1>
+
+<div id="controls">
+  <input type="text" id="ticketTitle" placeholder="Enter ticket title">
+  <button onclick="createTicket()">Create Ticket</button>
+</div>
+
+<div class="board">
+  <div class="column" id="awaiting" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>Awaiting Info</h3>
+  </div>
+  <div class="column" id="strike1" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>Strike 1</h3>
+  </div>
+  <div class="column" id="strike2" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>Strike 2</h3>
+  </div>
+  <div class="column" id="escalated" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>Escalated</h3>
+  </div>
+  <div class="column" id="wip" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>WIP</h3>
+  </div>
+</div>
+
+<div class="column" id="resolved" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <h3>Resolved Cases</h3>
+</div>
+
+<script>
+let ticketCounter = 1;
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("text");
+  const ticket = document.getElementById(data);
+  if (ev.target.classList.contains("column")) {
+    ev.target.appendChild(ticket);
   }
 }
+
+function resolveTicket(ticketId) {
+  const ticket = document.getElementById(ticketId);
+  document.getElementById("resolved").appendChild(ticket);
+  ticket.querySelector("button").innerText = "Retrieve";
+  ticket.querySelector("button").onclick = () => retrieveTicket(ticketId);
+}
+
+function retrieveTicket(ticketId) {
+  const ticket = document.getElementById(ticketId);
+  document.getElementById("awaiting").appendChild(ticket);
+  ticket.querySelector("button").innerText = "Resolve";
+  ticket.querySelector("button").onclick = () => resolveTicket(ticketId);
+}
+
+function createTicket() {
+  const title = document.getElementById("ticketTitle").value.trim();
+  if (!title) return alert("Please enter a ticket title.");
+  
+  const ticket = document.createElement("div");
+  ticket.className = "ticket";
+  ticket.id = "ticket" + ticketCounter++;
+  ticket.draggable = true;
+  ticket.ondragstart = drag;
+  ticket.innerHTML = `
+    <strong>${title}</strong><br>
+    <button onclick="resolveTicket('${ticket.id}')">Resolve</button>
+    <button onclick="deleteTicket('${ticket.id}')">Delete</button>
+  `;
+  
+  document.getElementById("awaiting").appendChild(ticket);
+  document.getElementById("ticketTitle").value = "";
+}
+function deleteTicket(ticketId) {
+  const ticket = document.getElementById(ticketId);
+  if (ticket) {
+    ticket.remove(); // tanggalin yung ticket sa board
+  }
+}
+</script>
+
+</body>
+</html>
