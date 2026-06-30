@@ -59,17 +59,19 @@
     overflow-x: auto;
     justify-content: flex-start;
     padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .column {
     flex: 0 0 250px;
     min-width: 250px;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     background: #2a2a2a;
     border: 1px solid #6f42c1;
     color: #ffffff;
     margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   }
 
   .column h3 {
@@ -133,17 +135,17 @@
 
   /* mobile version: stacked layout */
   @media (max-width: 768px) {
-    body { padding: 25px; }
-    h1 { font-size: 22px; margin-bottom: 30px; }
-    #controls { margin-bottom: 30px; }
-    #ticketTitle { width: 100%; margin-bottom: 12px; font-size: 16px; }
-    #controls button { width: 100%; padding: 12px; font-size: 16px; }
-    .board { flex-direction: column; gap: 25px; overflow-x: visible; }
-    .column { width: 100%; padding: 18px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
-    .column h3 { font-size: 18px; margin-bottom: 14px; }
-    .ticket { padding: 12px; margin: 12px 0; font-size: 15px; }
-    .ticket button { width: 100%; padding: 10px; font-size: 14px; margin-top: 8px; }
-    #resolved { margin-top: 30px; padding: 18px; }
+    body { padding: 20px; }
+    h1 { font-size: 20px; margin-bottom: 25px; }
+    #controls { margin-bottom: 25px; }
+    #ticketTitle { width: 100%; margin-bottom: 12px; font-size: 15px; }
+    #controls button { width: 100%; padding: 12px; font-size: 15px; }
+    .board { flex-direction: column; gap: 20px; overflow-x: hidden; }
+    .column { width: 100%; padding: 16px; margin-bottom: 20px; }
+    .column h3 { font-size: 17px; margin-bottom: 12px; }
+    .ticket { padding: 10px; margin: 10px 0; font-size: 14px; }
+    .ticket button { width: 100%; padding: 10px; font-size: 13px; margin-top: 8px; }
+    #resolved { margin-top: 25px; padding: 16px; }
   }
 </style>
 </head>
