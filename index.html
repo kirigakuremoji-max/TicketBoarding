@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ticket Board</title>
-
 <style>
   body {
     font-family: 'Poppins', sans-serif;
     background: #1c1c1c; /* medyo black, dark gray */
-    margin: 0; padding: 20px;
+    margin: 0; padding: 30px; /* dagdag space sa paligid */
     color: #ffffff;
   }
 
@@ -17,27 +10,28 @@
     text-align: center;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* mas maluwag space sa ilalim ng title */
   }
 
   #controls {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* dagdag space bago board */
     color: #ffffff;
   }
 
   #ticketTitle {
-    padding: 10px;
+    padding: 12px;
     border-radius: 8px;
     border: 1px solid #6f42c1;
-    width: 250px; /* mas maluwag input */
+    width: 250px;
     outline: none;
     background: #2a2a2a;
     color: #ffffff;
+    margin-right: 10px; /* space sa kanan ng input */
   }
 
   #controls button {
-    padding: 10px 20px; /* mas malaki button */
+    padding: 12px 20px;
     border: none;
     border-radius: 8px;
     background: #6f42c1;
@@ -51,46 +45,45 @@
     background: #4b2a85;
   }
 
-  /* scrollable board on desktop */
   .board {
     display: flex;
-    gap: 20px; /* mas maluwag gap */
+    gap: 25px; /* mas maluwag gap sa pagitan ng columns */
     flex-wrap: nowrap;
     overflow-x: auto;
     justify-content: flex-start;
-    padding-bottom: 10px;
+    padding-bottom: 15px; /* space sa ilalim ng board */
   }
 
-  /* wider columns */
   .column {
-    flex: 0 0 280px;   /* mas malapad bawat column */
+    flex: 0 0 280px;
     min-width: 280px;
-    padding: 15px;     /* mas maluwag loob */
-    border-radius: 10px;
+    padding: 20px; /* mas maluwag loob ng column */
+    border-radius: 12px;
     background: #2a2a2a;
     border: 1px solid #6f42c1;
     color: #ffffff;
+    margin-bottom: 20px; /* space sa ilalim ng bawat column */
   }
 
   .column h3 {
     text-align: center;
-    font-size: 18px; /* mas kita headings */
-    margin-bottom: 12px;
+    font-size: 18px;
+    margin-bottom: 15px; /* dagdag space sa ilalim ng heading */
     color: #ffffff;
     border-bottom: 1px solid #333;
-    padding-bottom: 6px;
+    padding-bottom: 8px;
   }
 
   .ticket {
     background: #6f42c1;
     border-radius: 8px;
-    padding: 12px; /* mas spacious card */
-    margin: 10px 0;
+    padding: 14px;
+    margin: 12px 0; /* mas maluwag space sa pagitan ng tickets */
     cursor: grab;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     color: #ffffff;
     transition: transform 0.2s;
-    font-size: 15px; /* mas readable text */
+    font-size: 15px;
   }
 
   .ticket:hover {
@@ -100,8 +93,8 @@
   }
 
   .ticket button {
-    margin-top: 10px;
-    padding: 6px 12px;
+    margin-top: 12px;
+    padding: 7px 14px;
     border: none;
     border-radius: 6px;
     background: #092372;
@@ -119,8 +112,8 @@
     border: 2px dashed #6f42c1;
     background: #1c1c1c;
     color: #ffffff;
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 30px; /* dagdag space bago resolved section */
+    padding: 20px;
   }
 
   /* responsive: stacked on mobile */
@@ -135,99 +128,3 @@
     }
   }
 </style>
-</head>
-<body>
-
-<h1>✨ MoNiCa Ticket Board ✨</h1>
-
-<div id="controls">
-  <input type="text" id="ticketTitle" placeholder="Enter ticket title">
-  <button onclick="createTicket()">Create Ticket</button>
-</div>
-
-<div class="board">
-  <div class="column" id="awaiting" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>Awaiting Info</h3>
-  </div>
-  <div class="column" id="strike1" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>Strike 1</h3>
-  </div>
-  <div class="column" id="strike2" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>Strike 2</h3>
-  </div>
-  <div class="column" id="escalated" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>Escalated</h3>
-  </div>
-  <div class="column" id="wip" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>WIP</h3>
-  </div>
-</div>
-
-<div class="column" id="resolved" ondrop="drop(event)" ondragover="allowDrop(event)">
-  <h3>Resolved Cases</h3>
-</div>
-
-<script>
-let ticketCounter = 1;
-
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
-  const ticket = document.getElementById(data);
-  if (ev.target.classList.contains("column")) {
-    ev.target.appendChild(ticket);
-  }
-}
-
-function resolveTicket(ticketId) {
-  const ticket = document.getElementById(ticketId);
-  document.getElementById("resolved").appendChild(ticket);
-  ticket.querySelector("button").innerText = "Retrieve";
-  ticket.querySelector("button").onclick = () => retrieveTicket(ticketId);
-}
-
-function retrieveTicket(ticketId) {
-  const ticket = document.getElementById(ticketId);
-  document.getElementById("awaiting").appendChild(ticket);
-  ticket.querySelector("button").innerText = "Resolve";
-  ticket.querySelector("button").onclick = () => resolveTicket(ticketId);
-}
-
-function deleteTicket(ticketId) {
-  const confirmDelete = confirm("Are you sure you want to delete this ticket?");
-  if (confirmDelete) {
-    const ticket = document.getElementById(ticketId);
-    ticket.remove(); // tuluyang burahin
-  }
-}
-
-function createTicket() {
-  const title = document.getElementById("ticketTitle").value.trim();
-  if (!title) return alert("Please enter a ticket title.");
-  
-  const ticket = document.createElement("div");
-  ticket.className = "ticket";
-  ticket.id = "ticket" + ticketCounter++;
-  ticket.draggable = true;
-  ticket.ondragstart = drag;
-  ticket.innerHTML = `
-    <strong>${title}</strong><br>
-    <button onclick="resolveTicket('${ticket.id}')">Resolve</button>
-    <button onclick="deleteTicket('${ticket.id}')">Delete</button>
-  `;
-  
-  document.getElementById("awaiting").appendChild(ticket);
-  document.getElementById("ticketTitle").value = "";
-}
-</script>
-
-</body>
-</html>
