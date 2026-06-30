@@ -8,8 +8,9 @@
 <style>
   body {
     font-family: 'Poppins', sans-serif;
-    background: #1c1c1c; /* medyo black, dark gray */
-    margin: 0; padding: 30px; /* dagdag space sa paligid */
+    background: #1c1c1c;
+    margin: 0; 
+    padding: 30px; /* mas maluwag sa paligid */
     color: #ffffff;
   }
 
@@ -17,12 +18,12 @@
     text-align: center;
     font-weight: 600;
     color: #ffffff;
-    margin-bottom: 30px; /* mas maluwag space sa ilalim ng title */
+    margin-bottom: 40px; /* dagdag space sa ilalim ng title */
   }
 
   #controls {
     text-align: center;
-    margin-bottom: 25px; /* dagdag space bago board */
+    margin-bottom: 30px; /* space bago board */
     color: #ffffff;
   }
 
@@ -30,15 +31,15 @@
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #6f42c1;
-    width: 250px;
+    width: 260px;
     outline: none;
     background: #2a2a2a;
     color: #ffffff;
-    margin-right: 10px; /* space sa kanan ng input */
+    margin-right: 12px; /* space sa kanan ng input */
   }
 
   #controls button {
-    padding: 12px 20px;
+    padding: 12px 22px;
     border: none;
     border-radius: 8px;
     background: #6f42c1;
@@ -54,38 +55,38 @@
 
   .board {
     display: flex;
-    gap: 25px; /* mas maluwag gap sa pagitan ng columns */
+    gap: 30px; /* mas maluwag gap sa pagitan ng columns */
     flex-wrap: nowrap;
     overflow-x: auto;
     justify-content: flex-start;
-    padding-bottom: 15px; /* space sa ilalim ng board */
+    padding-bottom: 20px;
   }
 
   .column {
-    flex: 0 0 280px;
-    min-width: 280px;
-    padding: 20px; /* mas maluwag loob ng column */
+    flex: 0 0 300px;   /* mas malapad bawat column */
+    min-width: 300px;
+    padding: 20px;
     border-radius: 12px;
     background: #2a2a2a;
     border: 1px solid #6f42c1;
     color: #ffffff;
-    margin-bottom: 20px; /* space sa ilalim ng bawat column */
+    margin-bottom: 25px; /* space sa ilalim ng bawat column */
   }
 
   .column h3 {
     text-align: center;
     font-size: 18px;
-    margin-bottom: 15px; /* dagdag space sa ilalim ng heading */
+    margin-bottom: 20px; /* dagdag space sa ilalim ng heading */
     color: #ffffff;
     border-bottom: 1px solid #333;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
   }
 
   .ticket {
     background: #6f42c1;
     border-radius: 8px;
     padding: 14px;
-    margin: 12px 0; /* mas maluwag space sa pagitan ng tickets */
+    margin: 15px 0; /* mas maluwag space sa pagitan ng tickets */
     cursor: grab;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     color: #ffffff;
@@ -119,8 +120,8 @@
     border: 2px dashed #6f42c1;
     background: #1c1c1c;
     color: #ffffff;
-    margin-top: 30px; /* dagdag space bago resolved section */
-    padding: 20px;
+    margin-top: 40px; /* dagdag space bago resolved section */
+    padding: 25px;
   }
 
   /* responsive: stacked on mobile */
@@ -128,6 +129,7 @@
     .board {
       flex-direction: column;
       overflow-x: visible;
+      gap: 20px; /* mas maliit gap sa mobile */
     }
     .column {
       width: 100%;
