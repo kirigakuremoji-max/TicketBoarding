@@ -137,30 +137,33 @@
 @media (max-width: 768px) {
   html, body {
     width: 100%;
-    overflow-x: hidden;   /* alisin ang side scroll */
-    overflow-y: auto;     /* scroll kung mahaba */
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: #1c1c1c;
+    margin: 0;
+    padding: 0;
   }
 
-  body { padding: 20px; }
-  h1 { font-size: 20px; margin-bottom: 25px; }
-  #controls { margin-bottom: 25px; }
-  #ticketTitle { width: 100%; margin-bottom: 12px; font-size: 15px; }
-  #controls button { width: 100%; padding: 12px; font-size: 15px; }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* center lahat ng content horizontally */
+  }
 
   .board {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    flex-wrap: wrap;
-    padding: 0 12px;       /* breathing space sa gilid */
+    width: 100%;
+    max-width: 600px; /* limit para hindi lumampas sa screen */
+    margin: 0 auto; /* center horizontally */
+    padding: 0 15px;
     box-sizing: border-box;
-    overflow: visible;     /* para hindi maputol ang content */
   }
 
   .column {
     width: 100%;
-    min-width: unset;
     padding: 18px;
     margin-bottom: 20px;
     border-radius: 12px;
@@ -170,42 +173,14 @@
     overflow: visible;
   }
 
-  .column h3 { font-size: 17px; margin-bottom: 12px; }
-
-  .ticket {
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 14px;
-    word-wrap: break-word;
-  }
-
-  .ticket button {
-    width: 100%;
-    padding: 10px;
-    font-size: 13px;
-    margin-top: 8px;
-  }
-
   #resolved {
-    margin-top: 25px;
+    width: 100%;
+    max-width: 600px;
+    margin: 25px auto 0 auto;
     padding: 18px;
     overflow: visible;
   }
 }
-@media (max-width: 768px) {
-  html, body {
-    width: 100%;
-    min-height: 100vh; /* siguraduhing abot hanggang dulo ng screen */
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #1c1c1c;
-  }
-
-  .board, .column, #resolved {
-    overflow: visible;
-  }
-}
-
 </style>
 </head>
 <body>
