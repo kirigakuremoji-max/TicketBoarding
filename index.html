@@ -5,175 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ticket Board</title>
 
-  <style>
-    /* --- START ng CSS mo --- */
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #1c1c1c; /* medyo black, dark gray */
-      margin: 0; padding: 20px;
-      color: #ffffff; /* white font */
-    }
-
-    h1 {
-      text-align: center;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 20px;
-    }
-
-    #controls {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #ffffff;
-    }
-
-    #ticketTitle {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #6f42c1; /* purple accent */
-      width: 200px;
-      outline: none;
-      background: #2a2a2a;
-      color: #ffffff;
-    }
-
-    #controls button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      background: #6f42c1; /* purple */
-      color: #ffffff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    #controls button:hover {
-      background: #4b2a85; /* darker purple */
-    }
-
-    .board {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .column {
-      flex: 1;
-      min-width: 180px;
-      padding: 10px;
-      border-radius: 10px;
-      background: #2a2a2a;
-      border: 1px solid #6f42c1;
-      color: #ffffff;
-    }
-
-    .column h3 {
-      text-align: center;
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: #ffffff;
-      border-bottom: 1px solid #333;
-      padding-bottom: 5px;
-    }
-
-    .ticket {
-      background: #6f42c1; /* purple */
-      border-radius: 8px;
-      padding: 10px;
-      margin: 8px 0;
-      cursor: grab;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      color: #ffffff;
-      transition: transform 0.2s;
-    }
-
-    .ticket:hover {
-      transform: scale(1.03);
-      background: #4b2a85; /* darker purple hover */
-      color: #ffffff;
-    }
-
-    .ticket button {
-      margin-top: 8px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 6px;
-      background: #092372; /* deep blue accent */
-      color: #ffffff;
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .ticket button:hover {
-      background: #03588c; /* lighter blue hover */
-    }
-
-    #resolved {
-      border: 2px dashed #6f42c1;
-      background: #1c1c1c;
-      color: #ffffff;
-    }
-@media (max-width: 600px) {
+<style>
   body {
-    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background: #1c1c1c; /* medyo black, dark gray */
+    margin: 0; padding: 20px;
+    color: #ffffff;
   }
 
   h1 {
-    font-size: 22px;
-    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
   }
 
   #controls {
-    margin-bottom: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
   }
 
   #ticketTitle {
-    width: 100%;
-    margin-bottom: 12px;
-    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #6f42c1;
+    width: 250px; /* mas maluwag input */
+    outline: none;
+    background: #2a2a2a;
+    color: #ffffff;
   }
 
   #controls button {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
+    padding: 10px 20px; /* mas malaki button */
+    border: none;
+    border-radius: 8px;
+    background: #6f42c1;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
   }
 
+  #controls button:hover {
+    background: #4b2a85;
+  }
+
+  /* scrollable board on desktop */
   .board {
-    flex-direction: column;
-    gap: 20px; /* mas malaking pagitan sa bawat column */
+    display: flex;
+    gap: 20px; /* mas maluwag gap */
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 10px;
   }
 
+  /* wider columns */
   .column {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 12px;
+    flex: 0 0 280px;   /* mas malapad bawat column */
+    min-width: 280px;
+    padding: 15px;     /* mas maluwag loob */
+    border-radius: 10px;
+    background: #2a2a2a;
+    border: 1px solid #6f42c1;
+    color: #ffffff;
   }
 
   .column h3 {
-    font-size: 18px;
+    text-align: center;
+    font-size: 18px; /* mas kita headings */
     margin-bottom: 12px;
+    color: #ffffff;
+    border-bottom: 1px solid #333;
+    padding-bottom: 6px;
   }
 
   .ticket {
-    padding: 12px;
+    background: #6f42c1;
+    border-radius: 8px;
+    padding: 12px; /* mas spacious card */
     margin: 10px 0;
-    font-size: 15px;
+    cursor: grab;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    color: #ffffff;
+    transition: transform 0.2s;
+    font-size: 15px; /* mas readable text */
+  }
+
+  .ticket:hover {
+    transform: scale(1.03);
+    background: #4b2a85;
+    color: #ffffff;
   }
 
   .ticket button {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    margin-top: 8px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #092372;
+    color: #ffffff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
   }
-}
 
-  </style>
+  .ticket button:hover {
+    background: #03588c;
+  }
+
+  #resolved {
+    border: 2px dashed #6f42c1;
+    background: #1c1c1c;
+    color: #ffffff;
+    margin-top: 20px;
+    padding: 15px;
+  }
+
+  /* responsive: stacked on mobile */
+  @media (max-width: 768px) {
+    .board {
+      flex-direction: column;
+      overflow-x: visible;
+    }
+    .column {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+</style>
 </head>
 <body>
 
