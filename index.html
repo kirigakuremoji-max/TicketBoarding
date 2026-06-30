@@ -192,6 +192,19 @@
     overflow: visible;
   }
 }
+@media (max-width: 768px) {
+  html, body {
+    width: 100%;
+    min-height: 100vh; /* siguraduhing abot hanggang dulo ng screen */
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #1c1c1c;
+  }
+
+  .board, .column, #resolved {
+    overflow: visible;
+  }
+}
 
 </style>
 </head>
