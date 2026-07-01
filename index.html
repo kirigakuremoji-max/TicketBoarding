@@ -64,7 +64,7 @@
   <h1>✨ MoNiCa Ticket Board ✨</h1>
   <div id="controls">
     <input type="text" id="ticketTitle" placeholder="Enter ticket title">
-    <button onclick="createTicket()">Create Ticket</button>
+<button onclick="createTicket(document.getElementById('ticketTitle').value)">Create Ticket</button>
     <button onclick="saveBoard()">Save Board</button>
   </div>
 
@@ -99,6 +99,9 @@ function createTicket(titleText) {
   ticket.appendChild(deleteBtn);
 
   document.getElementById('awaiting').appendChild(ticket);
+
+  // 🔧 Auto-clear input field pagkatapos gumawa ng ticket
+  document.getElementById('ticketTitle').value = '';
 }
 
 function saveBoard() {
