@@ -52,12 +52,13 @@
   <div id="resolved"><h3>Resolved Cases</h3></div>
 
 <script>
-function createTicket() {
-  const title = document.getElementById('ticketTitle').value.trim();
-  if (!title) return;
+function createTicket(titleText) {
   const ticket = document.createElement('div');
   ticket.className = 'ticket';
-  ticket.textContent = title;
+
+  const titleSpan = document.createElement('span');
+  titleSpan.textContent = titleText;
+  ticket.appendChild(titleSpan);
 
   const resolveBtn = document.createElement('button');
   resolveBtn.textContent = 'Resolve';
@@ -71,45 +72,28 @@ function createTicket() {
   ticket.appendChild(deleteBtn);
 
   document.getElementById('awaiting').appendChild(ticket);
-  document.getElementById('ticketTitle').value = '';
 }
 
-// Save board state
 function saveBoard() {
   const boardData = {};
   document.querySelectorAll('.column, #resolved').forEach(col => {
     boardData[col.id] = [];
     col.querySelectorAll('.ticket').forEach(ticket => {
-      boardData[col.id].push(ticket.textContent.replace('ResolveDelete','').trim());
+      const title = ticket.querySelector('span').innerText;
+      boardData[col.id].push(title);
     });
   });
   localStorage.setItem('ticketBoard', JSON.stringify(boardData));
-  alert('Board saved!');
 }
 
-// Load board state
 function loadBoard() {
   const data = JSON.parse(localStorage.getItem('ticketBoard'));
   if (!data) return;
   Object.keys(data).forEach(colId => {
     const col = document.getElementById(colId);
     data[colId].forEach(title => {
-      const ticket = document.createElement('div');
-      ticket.className = 'ticket';
-      ticket.textContent = title;
-
-      const resolveBtn = document.createElement('button');
-      resolveBtn.textContent = 'Resolve';
-      resolveBtn.onclick = () => document.getElementById('resolved').appendChild(ticket);
-
-      const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = 'Delete';
-      deleteBtn.onclick = () => ticket.remove();
-
-      ticket.appendChild(resolveBtn);
-      ticket.appendChild(deleteBtn);
-
-      col.appendChild(ticket);
+      createTicket(title);
+      col.appendChild(document.querySelector('.ticket:last-child'));
     });
   });
 }
@@ -118,3 +102,4 @@ window.onload = loadBoard;
 </script>
 </body>
 </html>
+
